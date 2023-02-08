@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 
     <app-list-names></app-list-names>
   `,
-  styles: []
+  styleUrls: [ './app.component.css' ]
 })
 export class AppComponent {
   title = 'sort-names';

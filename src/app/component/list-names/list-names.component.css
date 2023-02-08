@@ -1,13 +1,49 @@
+* {
+    text-align: center;
+    font-family: Helvetica;
+}
+
 div#select-names {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
 
+div#add-person input, div#add-person {    
+    text-align: center;
+    margin: 10px 0px
+}
+
+div#add-person button {    
+    width: 100px;
+}
+
 label.select-names {
     display: block;
     margin: 10px;
+    border: 1px solid black;
+    width: 150px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 2px 2px black;
+    background-color: #fafafa;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-align: center;
 }
+
+p#all-participants {
+    font-weight: bold;
+    font-size: 1.3em;
+} 
+
+div#buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
 
 span {
     text-decoration: underline;
@@ -16,4 +52,9 @@ span {
 
 div#shuffled-names {
     text-align: center;
+}
+
+button {
+    margin: 0px 8px;
+    width: 80px;
 }

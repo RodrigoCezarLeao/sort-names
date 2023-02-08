@@ -1,4 +1,4 @@
-<div>
+<div id="add-person">
     <label>Nome: <input type="text" #person_input/></label>
     <button (click)="addPerson(person_input)">Adicionar</button>
 </div>
@@ -6,7 +6,7 @@
 <hr />
 
 
-<p>{{checkedPeople.length}}/{{people.length}} participantes</p>
+<p id="all-participants">{{checkedPeople.length}}/{{people.length}} participantes</p>
 
 
 <div id="select-names">
@@ -15,10 +15,15 @@
     </ng-container>
 </div>
 
+<br />
+<br />
+
+<div id="buttons">
 <button (click)="shuffleNames()" [disabled]="anyoneSelected()">Sortear</button>
 <button (click)="selectAll()">Todos</button>
 <button (click)="deletePeople()" [disabled]="!justOneSelected()">Deletar</button>
 <button (click)="cleanShuffle()">Limpar</button>
+</div>
 
 <hr />
 

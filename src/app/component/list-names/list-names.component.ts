@@ -29,8 +29,13 @@ export class ListNamesComponent {
   }
 
   addPerson(elem: any){
-    this.peopleService.addPerson(elem.value);
-    this.getNames();
+    if (elem.value)
+    {
+      this.peopleService.addPerson(elem.value);
+      this.getNames();
+      elem.value = "";
+      elem.focus();
+    }
   }
 
   selectAll(){
@@ -42,6 +47,8 @@ export class ListNamesComponent {
 
   cleanShuffle() {
     this.shuffledNames = [];
+    this.booleanToggle = false;
+    this.selectAll();
   }
 
   deletePeople(){
