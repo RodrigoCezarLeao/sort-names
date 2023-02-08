@@ -1,0 +1,38 @@
+<div>
+    <label>Nome: <input type="text" #person_input/></label>
+    <button (click)="addPerson(person_input)">Adicionar</button>
+</div>
+
+<hr />
+
+
+<p>{{checkedPeople.length}}/{{people.length}} participantes</p>
+
+
+<div id="select-names">
+    <ng-container *ngFor="let person of people">
+        <label class="select-names"> <input type="checkbox" (change)="checkPerson(person)" [checked]="person.checked"/> {{ person.name }}</label>
+    </ng-container>
+</div>
+
+<button (click)="shuffleNames()" [disabled]="anyoneSelected()">Sortear</button>
+<button (click)="selectAll()">Todos</button>
+<button (click)="deletePeople()" [disabled]="!justOneSelected()">Deletar</button>
+<button (click)="cleanShuffle()">Limpar</button>
+
+<hr />
+
+<div id="shuffled-names" *ngIf="shuffledNames.length > 0">
+    <p>Sorteio gerado em: {{shuffledDate}}</p>    
+    <ng-container *ngFor="let person of shuffledNames; let i = index">
+        <div>        
+            <span>{{ person }}</span> 
+            ora por 
+            <span>{{ i === shuffledNames.length - 1 ? 
+                shuffledNames[0] : 
+                shuffledNames[i+1] 
+            }}</span>
+        </div>
+        <br />
+    </ng-container>
+</div>

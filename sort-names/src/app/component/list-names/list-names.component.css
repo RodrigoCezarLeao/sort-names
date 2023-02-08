@@ -1,0 +1,19 @@
+div#select-names {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+label.select-names {
+    display: block;
+    margin: 10px;
+}
+
+span {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+div#shuffled-names {
+    text-align: center;
+}
