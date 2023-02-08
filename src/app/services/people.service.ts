@@ -1,23 +1,46 @@
 import { Injectable } from '@angular/core';
+import { PEOPLE } from '../data/data';
 import { generateUUID } from '../helpers';
 import { People } from '../interfaces/people';
 
-
-const baseURL = "https://my-json-server.typicode.com/RodrigoCezarLeao/sortedNamesBacked"
+const baseURL = "http://localhost:4200"
 
 @Injectable({
   providedIn: 'root'
 })
 export class PeopleService {
 
-  getAllPeople(){
+  getAllPeople() {
+    return PEOPLE;
+  }
+
+  addPerson(name: string)
+  {
+    PEOPLE.push({
+      name: name,
+      checked: false,
+      id: generateUUID()
+    })
+  }
+
+  delete(people: People[]){
+    const index = PEOPLE.indexOf(people?.[0]);
+    PEOPLE.splice(index, 1);
+  }
+
+  update(person: People){
+    const index = PEOPLE.indexOf(person);
+    PEOPLE[index] = person;
+  }
+
+  getAllPeopleLiveServer(){
     return fetch(`${baseURL}/db`, {
       method: "GET", 
       headers: {"Content-Type": "application/json"}
     }).then(resp => resp.json())
   }
 
-  addPerson(name: string){
+  addPersonLiveServer(name: string){
     return fetch(`${baseURL}/People`, {
       method: "POST", 
       headers: {
@@ -31,7 +54,7 @@ export class PeopleService {
     }).then(resp => resp.json())    
   }
 
-  delete(people: People[]){
+  deleteLiveServer(people: People[]){
     const promises = [];
     for(let person of people)
     {
@@ -41,7 +64,7 @@ export class PeopleService {
     return Promise.all(promises);
   }
 
-  update(person: People){
+  updateLiveServer(person: People){
     return fetch(`${baseURL}/People` + person.id, {
       method: "PUT", 
       headers: {

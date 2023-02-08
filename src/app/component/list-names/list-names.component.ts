@@ -48,16 +48,18 @@ export class ListNamesComponent {
     const peopleToBeDeleted = this.people.filter(x => x.checked);
     const confirm = window.confirm(`Deseja excluir '${peopleToBeDeleted?.[0].name}'`);
 
-    if (confirm)    
-      this.peopleService.delete(peopleToBeDeleted).then(x => this.getNames());      
+    if (confirm){
+      this.peopleService.delete(peopleToBeDeleted);
+      this.getNames();
+    }
     
   }
 
   getNames(){
-    this.peopleService.getAllPeople().then(x => {
-      this.people = x.sort((a: People, b: People) => a.name >= b.name ? 1 : -1)
-      this.checkedPeople = this.people.filter(x => x.checked);
-    });
+    const people = this.peopleService.getAllPeople();
+    this.people = people.sort((a: People, b: People) => a.name >= b.name ? 1 : -1)
+    this.checkedPeople = this.people.filter(x => x.checked);
+    
     
   }
 
