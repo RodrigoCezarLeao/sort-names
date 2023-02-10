@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   template: `
     <app-header></app-header>
-
     <app-list-names></app-list-names>
   `,
   styleUrls: [ './app.component.css' ]

@@ -9,7 +9,7 @@ import { ListNamesComponent } from './component/list-names/list-names.component'
   declarations: [
     AppComponent,
     HeaderComponent,
-    ListNamesComponent    
+    ListNamesComponent
   ],
   imports: [
     BrowserModule

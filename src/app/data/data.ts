@@ -1,3 +1,4 @@
+import { Patch } from "../interfaces/patch";
 import { People } from "../interfaces/people";
 
 export const PEOPLE: People[] = [
@@ -131,4 +132,33 @@ export const PEOPLE: People[] = [
         "checked": false,
         "id": "47803d84-0180-46d6-ba68-d56ed5781e12"
       }
+];
+
+
+export const PATCHES: Patch[] = [
+  {
+    version: "1.1",
+    release_date: new Date(2023, 1, 8),
+    description: `
+      - Lançar sistema básico de sortear nomes marcados (cadastro fixo via js);
+      - Opção de cadastrar temporariamente novos participantes.
+    `,
+  },
+  {
+    version: "1.2",
+    release_date: new Date(2023, 1, 8),
+    description: `
+      - Melhorar estilização do site (CSS);
+      - Melhorar versão mobile.
+    `,
+  },
+  {
+    version: "1.3",
+    release_date: new Date(2023, 1, 10),
+    description: `
+      - Implementar versionamento de notas de atualização do sistema;
+      - Exibir versões e notas de atualização em tela;
+      - Modal de abertura e histórico de notas de atualização.
+    `,
+  },    
 ];
