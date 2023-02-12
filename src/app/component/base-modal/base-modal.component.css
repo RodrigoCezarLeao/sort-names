@@ -1,0 +1,42 @@
+#modal-container {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background: rgba(125,125,125,.6);
+    z-index: 2;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#modal-content-wrapper {
+    width: 85%;
+    height: 85vh;
+    background: #fff;
+    position: relative;
+}
+
+#close-modal-icon {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    color: red;
+    font-size: 1.3em;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 4;
+}
+
+#close-modal-icon:hover {
+    text-decoration: underline;
+}
+
+#modal-content-wrapper {
+    overflow: auto;
+}
+
+#modal-content {
+    padding: 10px;
+}

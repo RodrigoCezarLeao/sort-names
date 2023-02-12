@@ -153,12 +153,13 @@ export const PATCHES: Patch[] = [
     `,
   },
   {
-    version: "1.3",
-    release_date: new Date(2023, 1, 10),
+    version: "1.3.1",
+    release_date: new Date(2023, 1, 12),
     description: `
       - Implementar versionamento de notas de atualização do sistema;
       - Exibir versões e notas de atualização em tela;
       - Modal de abertura e histórico de notas de atualização.
+      - Generalizar solução de modal para reutilização na plataforma.      
     `,
-  },    
+  }
 ];

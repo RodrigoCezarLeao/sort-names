@@ -1,0 +1,7 @@
+<table>
+    <tr *ngFor="let patch of patches">                
+        <td>Data de Lançamento: {{formatDate(patch.release_date)}}</td>
+        <td>Versão: {{patch.version}}</td>
+        <td>Notas: {{renderDescription(patch.description)}}</td>                
+    </tr>
+</table>

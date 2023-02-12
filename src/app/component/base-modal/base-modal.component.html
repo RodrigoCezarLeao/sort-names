@@ -1,0 +1,8 @@
+<div id="modal-container" *ngIf="isModalOpened()">
+    <div id="modal-content-wrapper">
+        <p id="close-modal-icon" (click)="closeModal()">X</p>
+        <div id="modal-content">
+            <app-patch-notes *ngIf="content_slug === 'list-patch'"></app-patch-notes>
+        </div>
+    </div>
+</div>

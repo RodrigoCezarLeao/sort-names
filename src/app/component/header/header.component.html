@@ -1,25 +1,10 @@
 <header>
     <h1>Sorteador - Caverna de Adulão</h1>
 
-    <p (click)="openPatchesModal()">Versão {{lastPatch?.version}}</p>
+    <p (click)="openModal()">Versão {{lastPatch?.version}}</p>
+
+    <app-base-modal [content_slug]="'list-patch'" *ngIf="isModalOpened()" (close_modal)="closeModal()"></app-base-modal>
 
 </header>
 
 <hr />
-
-
-<div id="modal" *ngIf="isModalEnabled()">
-    <div class="relative">
-        <div id="modal-content">
-            <p id="close-modal" (click)="closePatchesModal()">X</p>
-
-            <table>
-                <tr *ngFor="let patch of patches">                
-                    <td>Data de Lançamento: {{formatDate(patch.release_date)}}</td>
-                    <td>Versão: {{patch.version}}</td>
-                    <td>Notas: {{renderDescription(patch.description)}}</td>                
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
