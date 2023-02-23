@@ -18,15 +18,19 @@
     position: relative;
 }
 
-#close-modal-icon {
+#close-modal-icon-wrapper {
     position: absolute;
     top: -10px;
-    right: 10px;
+    right: 25px;
+}
+
+#close-modal-icon {
+    position: fixed;
     color: red;
     font-size: 1.3em;
     font-weight: bold;
     cursor: pointer;
-    z-index: 4;
+    z-index: 5;
 }
 
 #close-modal-icon:hover {

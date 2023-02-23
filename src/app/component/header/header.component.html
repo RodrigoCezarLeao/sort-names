@@ -1,10 +1,7 @@
 <header>
     <h1>Sorteador - Caverna de Adulão</h1>
 
-    <p (click)="openModal()">Versão {{lastPatch?.version}}</p>
-
+    <p (click)="openModal()">{{lastPatch?.version}}</p>
     <app-base-modal [content_slug]="'list-patch'" *ngIf="isModalOpened()" (close_modal)="closeModal()"></app-base-modal>
-
 </header>
-
 <hr />

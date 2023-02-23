@@ -1,0 +1,1 @@
+export type Users = "member" | "guest" | "leader" | "admin"; 

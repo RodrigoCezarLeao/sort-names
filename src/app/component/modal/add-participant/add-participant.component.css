@@ -1,0 +1,25 @@
+#container {
+    padding: 10px;
+}
+
+#form-wrapper {
+    border: 1px solid #888;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+#form-wrapper label {
+    display: block;
+    margin-bottom: 25px;
+    width: 95%;
+}
+
+#message-wrapper {
+    color: red;
+}
+
+#form-button, fieldset {
+    margin-top: 15px;
+}

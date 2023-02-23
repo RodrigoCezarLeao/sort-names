@@ -1,0 +1,54 @@
+<div id="container">
+    <header id="header-wrapper">
+        <h2>Adicionar participante</h2>
+    </header>
+    
+    <section id="message-wrapper" [ngSwitch]="1" #message>
+        <p *ngSwitchCase="message_code">Participante adicionado com sucesso!</p>
+    </section>
+    
+    <form id="form-wrapper">
+        <fieldset>
+            <legend>Campos Obrigatórios</legend>
+                <label>
+                    Nome:
+                    <input type="text" #name_input/>
+                </label>
+
+                <label>
+                    Categoria:
+                    <select #category_input>
+                        <option disabled selected value="">-- Selecione uma opção --</option>
+                        <option value="member">Membro</option>
+                        <option value="guest">Visitante</option>        
+                    </select>
+                </label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Campos opcionais</legend>
+
+            <label>
+                Apelido:
+                <input type="text" #alias_input/>
+            </label>
+
+            <label>
+                E-mail:
+                <input type="mail" #mail_input/>
+            </label>
+
+            <label>
+                Telefone:
+                <input type="text" #phone_input/>
+            </label>
+        </fieldset>
+
+
+        <section id="form-button">
+            <button type="button" (click)="addParticipant(name_input, category_input, alias_input, mail_input, phone_input, message)">Adicionar</button>
+            <button type="button">Limpar</button>
+        </section>
+    </form>
+
+</div>

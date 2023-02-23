@@ -1,19 +1,19 @@
 <div id="add-person">
-    <label>Nome: <input type="text" #person_input/></label>
-    <button (click)="addPerson(person_input)">Adicionar</button>
+    <button (click)="openModal()">Adicionar Participante</button>
+    <app-base-modal [content_slug]="'add-participant'" *ngIf="isModalOpened()" (close_modal)="closeModal()"></app-base-modal>
 </div>
 
 <hr />
 
-
-<p id="all-participants">{{checkedPeople.length}}/{{people.length}} participantes</p>
-
-
-<div id="select-names">
-    <ng-container *ngFor="let person of people">
-        <label class="select-names"> <input type="checkbox" (change)="checkPerson(person)" [checked]="person.checked"/> {{ person.name }}</label>
-    </ng-container>
-</div>
+<details>
+    <summary id="all-participants">{{checkedPeople.length}}/{{people.length}} membros</summary>
+    
+    <div id="select-names">
+        <ng-container *ngFor="let person of people">
+            <label class="select-names"> <input type="checkbox" (change)="checkPerson(person)" [checked]="person.checked"/> {{ person.name }}</label>
+        </ng-container>
+    </div>
+</details>
 
 <br />
 <br />
@@ -30,14 +30,13 @@
 <div id="shuffled-names" *ngIf="shuffledNames.length > 0">
     <p>Sorteio gerado em: {{shuffledDate}}</p>    
     <ng-container *ngFor="let person of shuffledNames; let i = index">
-        <div>        
+        <div class="text-prayer">        
             <span>{{ person }}</span> 
             ora por 
             <span>{{ i === shuffledNames.length - 1 ? 
                 shuffledNames[0] : 
                 shuffledNames[i+1] 
             }}</span>
-        </div>
-        <br />
+        </div>        
     </ng-container>
 </div>

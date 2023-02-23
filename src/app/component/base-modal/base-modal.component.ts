@@ -22,6 +22,4 @@ export class BaseModalComponent {
     this.opened = false;
     this.close_modal.emit();
   }
-
-
 }

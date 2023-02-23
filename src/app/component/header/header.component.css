@@ -1,7 +1,7 @@
 div, header { 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: self-end;
 }
 
 header h1 {    
@@ -14,13 +14,16 @@ header h1 {
 
 header p {
     background-color: #f9ffcf;
-    width: 50px;
-    height: 40px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
     border: 1px solid black;    
     cursor: pointer;
     padding: 4px;
     border-radius: 3px;
+    font-size: 0.7em;
 }
 
 

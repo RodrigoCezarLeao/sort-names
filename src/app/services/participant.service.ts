@@ -1,38 +1,47 @@
 import { Injectable } from '@angular/core';
-import { PEOPLE } from '../data/data';
+import { SMALL_GROUP_MAIN_ID } from '../constants/general';
+import { PARTICIPANT } from '../data/data';
 import { generateUUID } from '../helpers';
-import { People } from '../interfaces/people';
-
-const baseURL = "http://localhost:4200"
+import { Participant } from '../interfaces/participant';
+import { Users } from '../interfaces/users';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PeopleService {
+export class ParticipantService {
 
-  getAllPeople() {
-    return PEOPLE;
+  getAllParticipant() {
+    return PARTICIPANT;
   }
 
-  addPerson(name: string)
+  add(name: string, role: Users, alias: string, mail: string, phone: string)
   {
-    PEOPLE.push({
+    PARTICIPANT.push({
+      id: generateUUID(),
       name: name,
+      type: role,
+      small_group_id: SMALL_GROUP_MAIN_ID,
+      alias: alias,
+      mail: mail,
+      phone: phone,
+      active: true,
       checked: false,
-      id: generateUUID()
     })
   }
 
-  delete(people: People[]){
-    const index = PEOPLE.indexOf(people?.[0]);
-    PEOPLE.splice(index, 1);
+  delete(people: Participant[]){
+    const index = PARTICIPANT.indexOf(people?.[0]);
+    PARTICIPANT.splice(index, 1);
   }
 
-  update(person: People){
-    const index = PEOPLE.indexOf(person);
-    PEOPLE[index] = person;
+  update(person: Participant){
+    const index = PARTICIPANT.indexOf(person);
+    PARTICIPANT[index] = person;
   }
 
+
+
+  /*
   getAllPeopleLiveServer(){
     return fetch(`${baseURL}/db`, {
       method: "GET", 
@@ -54,7 +63,7 @@ export class PeopleService {
     }).then(resp => resp.json())    
   }
 
-  deleteLiveServer(people: People[]){
+  deleteLiveServer(people: Participant[]){
     const promises = [];
     for(let person of people)
     {
@@ -64,7 +73,7 @@ export class PeopleService {
     return Promise.all(promises);
   }
 
-  updateLiveServer(person: People){
+  updateLiveServer(person: Participant){
     return fetch(`${baseURL}/People` + person.id, {
       method: "PUT", 
       headers: {
@@ -77,4 +86,5 @@ export class PeopleService {
       })
     }).then(resp => resp.json())    
   }
+  */
 }

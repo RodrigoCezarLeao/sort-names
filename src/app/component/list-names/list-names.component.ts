@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { shuffle } from 'src/app/helpers';
-import { People } from 'src/app/interfaces/people';
-import { PeopleService } from 'src/app/services/people.service';
+import { Participant } from 'src/app/interfaces/participant';
+import { ParticipantService } from 'src/app/services/participant.service';
 
 @Component({
   selector: 'app-list-names',
@@ -9,14 +9,15 @@ import { PeopleService } from 'src/app/services/people.service';
   styleUrls: ['./list-names.component.css']
 })
 export class ListNamesComponent {
-  people: People[] = [];  
-  checkedPeople: People[] = [];
+  people: Participant[] = [];  
+  checkedPeople: Participant[] = [];
   shuffledNames: string[] = [];
   shuffledDate: string = "";
   booleanToggle: boolean = true;
+  showModal: boolean = false;
 
   
-  constructor(private peopleService: PeopleService) {
+  constructor(private participantService: ParticipantService) {
     this.getNames();
   }
 
@@ -26,16 +27,6 @@ export class ListNamesComponent {
 
   justOneSelected() {
     return this.people.filter(x => x.checked).length === 1;
-  }
-
-  addPerson(elem: any){
-    if (elem.value)
-    {
-      this.peopleService.addPerson(elem.value);
-      this.getNames();
-      elem.value = "";
-      elem.focus();
-    }
   }
 
   selectAll(){
@@ -56,23 +47,23 @@ export class ListNamesComponent {
     const confirm = window.confirm(`Deseja excluir '${peopleToBeDeleted?.[0].name}'`);
 
     if (confirm){
-      this.peopleService.delete(peopleToBeDeleted);
+      this.participantService.delete(peopleToBeDeleted);
       this.getNames();
     }
     
   }
 
   getNames(){
-    const people = this.peopleService.getAllPeople();
-    this.people = people.sort((a: People, b: People) => a.name >= b.name ? 1 : -1)
+    const people = this.participantService.getAllParticipant();    
+    this.people = people.sort((a: Participant, b: Participant) => a.name >= b.name ? 1 : -1)
     this.checkedPeople = this.people.filter(x => x.checked);
     
     
   }
 
-  checkPerson(person: People, checked?: boolean){
+  checkPerson(person: Participant, checked?: boolean){
     person.checked = checked === undefined ? !person.checked : checked;
-    this.peopleService.update(person);
+    this.participantService.update(person);
     this.checkedPeople = this.people.filter(x => x.checked);
   }
 
@@ -80,5 +71,18 @@ export class ListNamesComponent {
     const presentPeople = this.people.filter(x => x.checked);
     this.shuffledNames = presentPeople.map(x => x.name).sort(() => Math.random() - 0.5);
     this.shuffledDate = `${ (new Date().getDate()).toString().padStart(2, "0")}/${(new Date().getMonth() + 1).toString().padStart(2, "0")}/${new Date().getFullYear()}`;
+  }
+
+  isModalOpened() {
+    return this.showModal === true;
+  }
+
+
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
   }
 }

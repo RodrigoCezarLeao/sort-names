@@ -34,7 +34,7 @@ label.select-names {
     text-align: center;
 }
 
-p#all-participants {
+summary#all-participants {
     font-weight: bold;
     font-size: 1.3em;
 } 
@@ -52,6 +52,11 @@ span {
 
 div#shuffled-names {
     text-align: center;
+}
+
+div.text-prayer {
+    font-size: 0.85em;
+    margin-bottom: 5px;
 }
 
 button {
