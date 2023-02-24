@@ -33,6 +33,14 @@ export const PARTICIPANT: Participant[] = [
         "small_group_id": "cleddfnep8pi70blxonh3afml",
         "active": true,
         "checked": false,
+      },
+      {
+        "id": "f3a5b1e2-0264-4ffc-8b5a-69e799e0e408",
+        "name": "Vinicius Rosa",
+        "type": "guest",
+        "small_group_id": "cleddfnep8pi70blxonh3afml",
+        "active": true,
+        "checked": false,
       },      
 ];
 
@@ -62,6 +70,15 @@ export const PATCHES: Patch[] = [
       - Exibir versões e notas de atualização em tela;
       - Modal de abertura e histórico de notas de atualização.
       - Generalizar solução de modal para reutilização na plataforma.      
+    `,
+  },
+  {
+    version: "1.4",
+    release_date: new Date(2023, 1, 24),
+    description: `
+      - Separação de membros e visitantes;
+      - Melhoria de informações ao adicionar novos participantes;
+      - Salvar e excluir novos participantes.
     `,
   }
 ];

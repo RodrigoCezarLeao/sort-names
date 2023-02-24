@@ -3,7 +3,7 @@
     font-family: Helvetica;
 }
 
-div#select-names {
+div.select-names {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -34,7 +34,7 @@ label.select-names {
     text-align: center;
 }
 
-summary#all-participants {
+summary.participants {
     font-weight: bold;
     font-size: 1.3em;
 } 

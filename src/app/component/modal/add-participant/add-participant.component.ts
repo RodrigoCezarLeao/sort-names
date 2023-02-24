@@ -26,14 +26,19 @@ export class AddParticipantComponent {
     
     if (name && category)
     {
-      this.participantService.add(name, category, alias, mail, phone)
+      this.participantService.add(name, category, alias, mail, phone);
       this.message_code = 1;
       setTimeout(() => {
         this.message_code = 0;
         this.close_modal.emit();
       }, 3000);
-      message.scrollIntoView(true);
-      
+      message.scrollIntoView(true);      
+    }
+    else {
+      this.message_code = 2;
+      setTimeout(() => {
+        this.message_code = 0;        
+      }, 3000);
     }
   }
 }

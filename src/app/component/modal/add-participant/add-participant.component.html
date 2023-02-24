@@ -3,8 +3,9 @@
         <h2>Adicionar participante</h2>
     </header>
     
-    <section id="message-wrapper" [ngSwitch]="1" #message>
-        <p *ngSwitchCase="message_code">Participante adicionado com sucesso!</p>
+    <section id="message-wrapper" [ngSwitch]="message_code" #message>
+        <p *ngSwitchCase="1" class="success">Participante adicionado com sucesso!</p>
+        <p *ngSwitchCase="2" class="error">Os campos 'nome' e 'categoria' devem ser preenchidos!</p>
     </section>
     
     <form id="form-wrapper">

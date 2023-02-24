@@ -23,3 +23,13 @@
 #form-button, fieldset {
     margin-top: 15px;
 }
+
+.success {
+    color: green;
+    font-weight: bold;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}

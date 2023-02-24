@@ -6,14 +6,32 @@
 <hr />
 
 <details>
-    <summary id="all-participants">{{checkedPeople.length}}/{{people.length}} membros</summary>
+    <summary class="participants">{{getCheckedMembers()}}/{{getTotalMembers()}} Membros</summary>
     
-    <div id="select-names">
-        <ng-container *ngFor="let person of people">
-            <label class="select-names"> <input type="checkbox" (change)="checkPerson(person)" [checked]="person.checked"/> {{ person.name }}</label>
+    <div class="select-names">
+        <ng-container *ngFor="let person of participants">
+            <ng-container *ngIf="isMember(person)">
+                <label class="select-names"> <input type="checkbox" (change)="checkPerson(person)" [checked]="person.checked"/> {{ person.name }}</label>
+            </ng-container>
         </ng-container>
     </div>
 </details>
+
+<hr/> 
+
+<details>
+    <summary class="participants">{{getCheckedGuests()}}/{{getTotalGuests()}} Visitantes</summary>
+    
+    <div class="select-names">
+        <ng-container *ngFor="let person of participants">
+            <ng-container *ngIf="isGuest(person)">
+                <label class="select-names"> <input type="checkbox" (change)="checkPerson(person)" [checked]="person.checked"/> {{ person.name }}</label>
+            </ng-container>
+        </ng-container>
+    </div>
+</details>
+
+<hr/> 
 
 <br />
 <br />

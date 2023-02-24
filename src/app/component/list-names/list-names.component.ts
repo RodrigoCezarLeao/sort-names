@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GUEST, LEADER, MEMBER } from 'src/app/constants/participant';
 import { shuffle } from 'src/app/helpers';
 import { Participant } from 'src/app/interfaces/participant';
 import { ParticipantService } from 'src/app/services/participant.service';
@@ -9,7 +10,7 @@ import { ParticipantService } from 'src/app/services/participant.service';
   styleUrls: ['./list-names.component.css']
 })
 export class ListNamesComponent {
-  people: Participant[] = [];  
+  participants: Participant[] = [];
   checkedPeople: Participant[] = [];
   shuffledNames: string[] = [];
   shuffledDate: string = "";
@@ -18,19 +19,19 @@ export class ListNamesComponent {
 
   
   constructor(private participantService: ParticipantService) {
-    this.getNames();
+    this.getParticipants();
   }
 
   anyoneSelected(){
-    return this.people.filter(x => x.checked).length === 0;
+    return this.participants.filter(x => x.checked).length === 0;
   }
 
   justOneSelected() {
-    return this.people.filter(x => x.checked).length === 1;
+    return this.participants.filter(x => x.checked).length === 1;
   }
 
   selectAll(){
-    this.people.forEach(x => {      
+    this.participants.forEach(x => {      
       this.checkPerson(x, this.booleanToggle);
     });
     this.booleanToggle = !this.booleanToggle;
@@ -43,20 +44,20 @@ export class ListNamesComponent {
   }
 
   deletePeople(){
-    const peopleToBeDeleted = this.people.filter(x => x.checked);
+    const peopleToBeDeleted = this.participants.filter(x => x.checked);
     const confirm = window.confirm(`Deseja excluir '${peopleToBeDeleted?.[0].name}'`);
 
     if (confirm){
       this.participantService.delete(peopleToBeDeleted);
-      this.getNames();
+      this.getParticipants();
     }
     
   }
 
-  getNames(){
+  getParticipants(){
     const people = this.participantService.getAllParticipant();    
-    this.people = people.sort((a: Participant, b: Participant) => a.name >= b.name ? 1 : -1)
-    this.checkedPeople = this.people.filter(x => x.checked);
+    this.participants = people.sort((a: Participant, b: Participant) => a.name >= b.name ? 1 : -1)
+    this.checkedPeople = this.participants.filter(x => x.checked);
     
     
   }
@@ -64,11 +65,11 @@ export class ListNamesComponent {
   checkPerson(person: Participant, checked?: boolean){
     person.checked = checked === undefined ? !person.checked : checked;
     this.participantService.update(person);
-    this.checkedPeople = this.people.filter(x => x.checked);
+    this.checkedPeople = this.participants.filter(x => x.checked);
   }
 
   shuffleNames(){
-    const presentPeople = this.people.filter(x => x.checked);
+    const presentPeople = this.participants.filter(x => x.checked);
     this.shuffledNames = presentPeople.map(x => x.name).sort(() => Math.random() - 0.5);
     this.shuffledDate = `${ (new Date().getDate()).toString().padStart(2, "0")}/${(new Date().getMonth() + 1).toString().padStart(2, "0")}/${new Date().getFullYear()}`;
   }
@@ -84,5 +85,30 @@ export class ListNamesComponent {
 
   closeModal() {
     this.showModal = false;
+  }
+
+
+  getTotalMembers() {
+    return this.participants.filter(x => x.type === MEMBER || x.type === LEADER).length;
+  }
+
+  getTotalGuests() {
+    return this.participants.filter(x => x.type === GUEST).length;
+  }
+
+  getCheckedMembers() {
+    return this.participants.filter(x => (x.type === MEMBER || x.type === LEADER) && x.checked).length;
+  }
+
+  getCheckedGuests() {
+    return this.participants.filter(x => x.type === GUEST && x.checked).length;
+  }
+
+  isGuest(participant: Participant) {
+    return participant.type === GUEST;
+  }
+
+  isMember(participant: Participant) {
+    return participant.type === MEMBER || participant.type === LEADER;
   }
 }
