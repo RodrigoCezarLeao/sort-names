@@ -81,4 +81,8 @@ export const PATCHES: Patch[] = [
       - Salvar e excluir novos participantes.
     `,
   }
+// visitantes marcados na lista
+// promover e rebaixar visitante/membro
+// trocar nomes por apelidos (visualização)
+// excluir participante só fazer adormecer
 ];

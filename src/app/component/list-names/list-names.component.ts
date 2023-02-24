@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { GUEST, LEADER, MEMBER } from 'src/app/constants/participant';
+import { PARTICIPANT } from 'src/app/data/data';
 import { shuffle } from 'src/app/helpers';
 import { Participant } from 'src/app/interfaces/participant';
 import { ParticipantService } from 'src/app/services/participant.service';
@@ -23,7 +24,7 @@ export class ListNamesComponent {
   }
 
   anyoneSelected(){
-    return this.participants.filter(x => x.checked).length === 0;
+    return this.participants.filter(x => x.checked).length < 3;
   }
 
   justOneSelected() {
@@ -43,23 +44,22 @@ export class ListNamesComponent {
     this.selectAll();
   }
 
-  deletePeople(){
-    const peopleToBeDeleted = this.participants.filter(x => x.checked);
-    const confirm = window.confirm(`Deseja excluir '${peopleToBeDeleted?.[0].name}'`);
+  async deletePeople(){
+    const peopleToBeDeleted = this.participants.find(x => x.checked);
+    const confirm = window.confirm(`Deseja excluir '${peopleToBeDeleted?.name}'`);
 
-    if (confirm){
-      this.participantService.delete(peopleToBeDeleted);
-      this.getParticipants();
+    if (confirm && peopleToBeDeleted?.id){
+      await this.participantService.delete(peopleToBeDeleted?.id);
+      await this.getParticipants();
     }
     
   }
 
-  getParticipants(){
-    const people = this.participantService.getAllParticipant();    
-    this.participants = people.sort((a: Participant, b: Participant) => a.name >= b.name ? 1 : -1)
+  async getParticipants(){
+    const people = await this.participantService.getSmallGroupParticipants();
+    console.log("🚀 ~ file: list-names.component.ts:60 ~ ListNamesComponent ~ getParticipants ~ people:", people)
+    this.participants = people.sort((a: Participant, b: Participant) => a.name >= b.name ? 1 : -1);
     this.checkedPeople = this.participants.filter(x => x.checked);
-    
-    
   }
 
   checkPerson(person: Participant, checked?: boolean){
@@ -85,6 +85,7 @@ export class ListNamesComponent {
 
   closeModal() {
     this.showModal = false;
+    this.getParticipants();
   }
 
 
