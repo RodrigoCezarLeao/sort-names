@@ -63,3 +63,10 @@ button {
     margin: 0px 8px;
     width: 80px;
 }
+
+.guest {
+    font-style: italic;
+}
+.guest::after {
+    content: "*";    
+}

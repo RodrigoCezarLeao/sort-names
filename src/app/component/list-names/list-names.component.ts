@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SMALL_GROUP_MAIN_ID } from 'src/app/constants/general';
 import { GUEST, LEADER, MEMBER } from 'src/app/constants/participant';
 import { PARTICIPANT } from 'src/app/data/data';
 import { shuffle } from 'src/app/helpers';
@@ -13,15 +14,76 @@ import { ParticipantService } from 'src/app/services/participant.service';
 export class ListNamesComponent {
   participants: Participant[] = [];
   checkedPeople: Participant[] = [];
-  shuffledNames: string[] = [];
+  shuffledNames: Participant[] = [];
   shuffledDate: string = "";
   booleanToggle: boolean = true;
   showModal: boolean = false;
-
+  addGuestButtonDisabledFlag: boolean = true;
   
   constructor(private participantService: ParticipantService) {
     this.getParticipants();
   }
+
+
+  isGuestInputValid(input: HTMLInputElement) {    
+    if (input.value && this.addGuestButtonDisabledFlag)
+    this.addGuestButtonDisabledFlag = false;
+    
+    if (!input.value && !this.addGuestButtonDisabledFlag)
+    this.addGuestButtonDisabledFlag = true;
+  }
+  
+  cleanAddGuestInput(input: HTMLInputElement){
+    input.value = "";
+    input.focus();
+  }
+
+  async addGuest(input: HTMLInputElement) {
+    if (input.value) {
+      const newParticipant: Participant = {
+        id: "",
+        name: input.value,
+        alias: input.value.split(" ")?.[0],
+        type: GUEST,
+        small_group_id: SMALL_GROUP_MAIN_ID,
+        active: true,
+        checked: false
+      }
+
+      try {
+        var newId = await this.participantService.addGuest(newParticipant);
+        if (newId)
+          this.participants.push( { ...newParticipant, id: newId} );
+        else
+          throw new Error("erro ao adicionar novo visitante no banco de dados!");
+          
+        // alert(`'${newParticipant.name}' adicionado como visitante com sucesso!`);
+      }catch(error) {
+        alert(`Erro ao adicionar '${newParticipant.name}'. \n ${error}`);        
+      }
+
+      this.cleanAddGuestInput(input);
+    }
+  }
+
+  async promoteGuest() {
+    const guestToBecomeMember = this.participants.find(x => x.checked && x.type === GUEST);
+    if (guestToBecomeMember)
+    {
+      try {
+        var flag = await this.participantService.promoteGuest(guestToBecomeMember.id);
+        if (flag)
+          guestToBecomeMember.type = MEMBER;
+        else
+          throw new Error("erro ao salvar promoção à membro no banco de dados!");
+        
+        // alert(`Visitante '${guestToBecomeMember.name}' promovido a membro com sucesso!`);
+      }catch(error){
+        alert(`Erro ao promover o visitante '${guestToBecomeMember.name}'. \n ${error}`);
+      }
+    }
+  }
+
 
   anyoneSelected(){
     return this.participants.filter(x => x.checked).length < 3;
@@ -29,6 +91,10 @@ export class ListNamesComponent {
 
   justOneSelected() {
     return this.participants.filter(x => x.checked).length === 1;
+  }
+
+  justOneGuestSelected() {
+    return this.participants.filter(x => x.checked && x.type === GUEST).length === 1;
   }
 
   selectAll(){
@@ -57,21 +123,21 @@ export class ListNamesComponent {
 
   async getParticipants(){
     const people = await this.participantService.getSmallGroupParticipants();
-    console.log("🚀 ~ file: list-names.component.ts:60 ~ ListNamesComponent ~ getParticipants ~ people:", people)
     this.participants = people.sort((a: Participant, b: Participant) => a.name >= b.name ? 1 : -1);
     this.checkedPeople = this.participants.filter(x => x.checked);
   }
 
   checkPerson(person: Participant, checked?: boolean){
-    person.checked = checked === undefined ? !person.checked : checked;
-    this.participantService.update(person);
+    person.checked = checked === undefined ? !person.checked : checked;    
     this.checkedPeople = this.participants.filter(x => x.checked);
   }
 
   shuffleNames(){
     const presentPeople = this.participants.filter(x => x.checked);
-    this.shuffledNames = presentPeople.map(x => x.name).sort(() => Math.random() - 0.5);
+    this.shuffledNames = presentPeople.sort(() => Math.random() - 0.5);
     this.shuffledDate = `${ (new Date().getDate()).toString().padStart(2, "0")}/${(new Date().getMonth() + 1).toString().padStart(2, "0")}/${new Date().getFullYear()}`;
+  console.log("🚀 ~ file: list-names.component.ts:18 ~ ListNamesComponent ~ shuffledNames:", this.shuffledNames)
+
   }
 
   isModalOpened() {

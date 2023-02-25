@@ -80,9 +80,20 @@ export const PATCHES: Patch[] = [
       - Melhoria de informações ao adicionar novos participantes;
       - Salvar e excluir novos participantes.
     `,
+  },
+  {
+    version: "1.4.1",
+    release_date: new Date(2023, 1, 25),
+    description: `
+      - Mudança na forma de adicionar novos membros (apenas como visitantes);
+      - Promover visitantes à membros;
+      - Visitantes com destaque na lista de sorteio de oração.
+    `,
   }
-// visitantes marcados na lista
-// promover e rebaixar visitante/membro
+
+// Modal de adicionar participantes deve virar modal de edição e visualização de todos os dados
+// Inserir uma página com as informações de geral
+// rebaixar visitante/membro?
 // trocar nomes por apelidos (visualização)
 // excluir participante só fazer adormecer
 ];

@@ -17,28 +17,6 @@ export class AddParticipantComponent {
   constructor(private participantService: ParticipantService){}
   
   async addParticipant(name_input: HTMLInputElement, category_input: HTMLSelectElement, alias_input: HTMLInputElement, mail_input: HTMLInputElement, phone_input: HTMLInputElement, message: HTMLElement) {
-    const name = name_input.value;
-    const category = <Users> category_input.selectedOptions?.[0].value;
-    const alias = alias_input.value;
-    const mail = mail_input.value;
-    const phone = phone_input.value;
-
-    
-    if (name && category)
-    {
-      await this.participantService.add(name, category, alias, mail, phone);
-      this.message_code = 1;
-      setTimeout(() => {
-        this.message_code = 0;
-        this.close_modal.emit();
-      }, 3000);
-      message.scrollIntoView(true);      
-    }
-    else {
-      this.message_code = 2;
-      setTimeout(() => {
-        this.message_code = 0;        
-      }, 3000);
-    }
+    console.log("add");
   }
 }

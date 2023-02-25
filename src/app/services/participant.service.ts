@@ -41,47 +41,64 @@ export class ParticipantService {
     };
 
     return await baseGraphCMSFetch(cmsQuery);
-}
+  }
 
-  async add(name: string, role: Users, alias: string, mail: string, phone: string) {
-    if (name && role) {
-      const newParticipant = {
-        // id: generateUUID(),
-        name: name,
-        type: role,
-        small_group_id: SMALL_GROUP_MAIN_ID,
-        alias: !alias ? name.split(" ")?.[0] : alias,
-        mail: mail,
-        phone: phone,
-        active: true,
-        checked: false,
-      };
-
+  async addGuest(participant: Participant) {
+    if (participant.name && participant.type) {
       try {
         const cmsQuery = { 
             query : `
                 mutation {
                     createParticipant(data: {
-                      name: "${newParticipant.name}",
-                      type: ${newParticipant.type},
-                      smallGroup: {connect: {id: "${newParticipant.small_group_id}"} },
-                      alias: "${newParticipant.alias}",
-                      mail: "${newParticipant.mail}",
-                      phone: "${newParticipant.phone}",
-                      active: ${newParticipant.active}
+                      name: "${participant.name}",
+                      type: ${participant.type},
+                      smallGroup: {connect: {id: "${participant.small_group_id}"} },
+                      alias: "${participant.alias}",
+                      mail: "${participant.mail}",
+                      phone: "${participant.phone}",
+                      active: ${participant.active}
                     }) { id }
                 }
         `};
 
-        var res = await baseGraphCMSFetch(cmsQuery);        
-        const newParticipant2 = {...newParticipant, id: res?.data?.createParticipant?.id};
-        await this.publishParticipant(newParticipant2?.id);                
+        var res = await baseGraphCMSFetch(cmsQuery);
+        const newParticipant2 = {...participant, id: res?.data?.createParticipant?.id};
+        await this.publishParticipant(newParticipant2?.id);
+        return newParticipant2.id;
       }catch(error) {
-        const errorMessage = `error inserting ${name} (${role}) - ${error}`;
+        const errorMessage = `Erro ao adicionar o participante '${participant.name}' como '${participant.type}'!\n${error}`;
         alert(errorMessage);
-        console.log(errorMessage);
+        console.error(errorMessage);
+        return null;
+      }
+      
+    }
+  }
+
+  async promoteGuest(id: string){
+    if (id) {      
+      try {
+        const cmsQuery = { 
+          query : `
+            mutation {
+              updateParticipant(data: {type: member}, 
+                where: {id: "${id}"})
+              {id}
+            }              
+        `};
+
+        var res = await baseGraphCMSFetch(cmsQuery);        
+        await this.publishParticipant(id);
+        return true;
+      }catch(error) {
+        const errorMessage = `Erro ao promover o visitante de id '${id}'!\n${error}`;
+        alert(errorMessage);
+        console.error(errorMessage);
+        return false;
       }
     }
+
+    return false;
   }
 
   async delete(id: string) {
@@ -97,58 +114,4 @@ export class ParticipantService {
 
     await baseGraphCMSFetch(cmsQuery);
   }
-
-  update(person: Participant){
-    const index = PARTICIPANT.indexOf(person);
-    PARTICIPANT[index] = person;
-  }
-
-
-
-  /*
-  getAllPeopleLiveServer(){
-    return fetch(`${baseURL}/db`, {
-      method: "GET", 
-      headers: {"Content-Type": "application/json"}
-    }).then(resp => resp.json())
-  }
-
-  addPersonLiveServer(name: string){
-    return fetch(`${baseURL}/People`, {
-      method: "POST", 
-      headers: {
-        "Content-Type": "application/json"        
-      },
-      body: JSON.stringify({
-        name: name,
-        checked: false,
-        id: generateUUID()
-      })
-    }).then(resp => resp.json())    
-  }
-
-  deleteLiveServer(people: Participant[]){
-    const promises = [];
-    for(let person of people)
-    {
-      promises.push(fetch(`${baseURL}/People` + person.id, {method: "DELETE"}).then(resp => resp.json()));
-    }
-
-    return Promise.all(promises);
-  }
-
-  updateLiveServer(person: Participant){
-    return fetch(`${baseURL}/People` + person.id, {
-      method: "PUT", 
-      headers: {
-        "Content-Type": "application/json"        
-      },
-      body: JSON.stringify({
-        name: person.name,
-        checked: person.checked,
-        id: person.id
-      })
-    }).then(resp => resp.json())    
-  }
-  */
 }

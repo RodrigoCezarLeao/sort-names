@@ -1,6 +1,6 @@
 <div id="add-person">
-    <button (click)="openModal()">Adicionar Participante</button>
-    <app-base-modal [content_slug]="'add-participant'" *ngIf="isModalOpened()" (close_modal)="closeModal()"></app-base-modal>
+    <input type="text" #add_guest (input)="isGuestInputValid(add_guest)"/>
+    <button (click)="addGuest(add_guest)" [disabled]="addGuestButtonDisabledFlag">Adicionar</button>
 </div>
 
 <hr />
@@ -39,6 +39,7 @@
 <div id="buttons">
 <button (click)="shuffleNames()" [disabled]="anyoneSelected()">Sortear</button>
 <button (click)="selectAll()">Todos</button>
+<button (click)="promoteGuest()" [disabled]="!justOneGuestSelected()">Tornar Membro</button>
 <button (click)="deletePeople()" [disabled]="!justOneSelected()">Deletar</button>
 <button (click)="cleanShuffle()">Limpar</button>
 </div>
@@ -49,11 +50,13 @@
     <p>Sorteio gerado em: {{shuffledDate}}</p>    
     <ng-container *ngFor="let person of shuffledNames; let i = index">
         <div class="text-prayer">        
-            <span>{{ person }}</span> 
+            <span [className]="person.type === 'guest' ? 'guest' : '' ">{{ person.name }}</span> 
             ora por 
-            <span>{{ i === shuffledNames.length - 1 ? 
-                shuffledNames[0] : 
-                shuffledNames[i+1] 
+            <span [className]="((i === shuffledNames.length - 1) && (shuffledNames[0].type === 'guest')) ||
+                                ((i < shuffledNames.length-1) && (shuffledNames[i+1].type === 'guest'))
+                                ? 'guest' : ''">{{ i === shuffledNames.length - 1 ? 
+                shuffledNames[0].name : 
+                shuffledNames[i+1].name 
             }}</span>
         </div>        
     </ng-container>
