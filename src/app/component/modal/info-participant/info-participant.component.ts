@@ -8,4 +8,8 @@ import { Component, Input } from '@angular/core';
 export class InfoParticipantComponent {
   @Input() prop: any = null;
 
+  getValueStr(str: string) {
+    return str !== "null" && str !== "undefined" && str ? str : "";
+  }
+
 }

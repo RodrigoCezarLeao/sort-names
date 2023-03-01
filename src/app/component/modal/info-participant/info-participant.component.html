@@ -1,1 +1,19 @@
-<p>info-participant works!</p>
+<div>
+<table>
+    <tr>
+        <th>Nome</th>
+        <th>Apelido</th>
+        <th>Tipo</th>
+        <th>E-mail</th>
+        <th>Telefone</th>
+    </tr>
+
+    <tr *ngFor="let row of prop">
+        <td>{{getValueStr(row.name)}}</td>
+        <td>{{getValueStr(row.alias)}}</td>
+        <td>{{getValueStr(row.type)}}</td>
+        <td>{{getValueStr(row.mail)}}</td>
+        <td>{{getValueStr(row.phone)}}</td>
+    </tr>
+</table>
+</div>
