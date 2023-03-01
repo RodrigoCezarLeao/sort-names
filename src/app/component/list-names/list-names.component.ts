@@ -19,7 +19,7 @@ export class ListNamesComponent {
   shuffledDate: string = "";
   booleanToggle: boolean = true;
   showEditParticipantModal: boolean = false;
-  showInfoParticipantModal: boolean = true;
+  showInfoParticipantModal: boolean = false;
   addGuestButtonDisabledFlag: boolean = true;
   
   constructor(private participantService: ParticipantService) {
