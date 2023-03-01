@@ -6,6 +6,8 @@ import { ListNamesComponent } from './component/list-names/list-names.component'
 import { BaseModalComponent } from './component/base-modal/base-modal.component';
 import { PatchNotesComponent } from './component/modal/patch-notes/patch-notes.component';
 import { AddParticipantComponent } from './component/modal/add-participant/add-participant.component';
+import { EditParticipantComponent } from './component/modal/edit-participant/edit-participant.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,10 +16,12 @@ import { AddParticipantComponent } from './component/modal/add-participant/add-p
     ListNamesComponent,
     BaseModalComponent,
     PatchNotesComponent,
-    AddParticipantComponent
+    AddParticipantComponent,
+    EditParticipantComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

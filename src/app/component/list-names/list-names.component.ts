@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { SMALL_GROUP_MAIN_ID } from 'src/app/constants/general';
 import { GUEST, LEADER, MEMBER } from 'src/app/constants/participant';
 import { PARTICIPANT } from 'src/app/data/data';
@@ -15,15 +15,15 @@ export class ListNamesComponent {
   participants: Participant[] = [];
   checkedPeople: Participant[] = [];
   shuffledNames: Participant[] = [];
+  editionParticipant: Participant | undefined = undefined;
   shuffledDate: string = "";
   booleanToggle: boolean = true;
-  showModal: boolean = false;
+  showEditParticipantModal: boolean = false;
   addGuestButtonDisabledFlag: boolean = true;
   
   constructor(private participantService: ParticipantService) {
     this.getParticipants();
   }
-
 
   isGuestInputValid(input: HTMLInputElement) {    
     if (input.value && this.addGuestButtonDisabledFlag)
@@ -110,15 +110,9 @@ export class ListNamesComponent {
     this.selectAll();
   }
 
-  async deletePeople(){
-    const peopleToBeDeleted = this.participants.find(x => x.checked);
-    const confirm = window.confirm(`Deseja excluir '${peopleToBeDeleted?.name}'`);
-
-    if (confirm && peopleToBeDeleted?.id){
-      await this.participantService.delete(peopleToBeDeleted?.id);
-      await this.getParticipants();
-    }
-    
+  openEditParticipantModal() {
+    this.editionParticipant = this.participants.find(x => x.checked);    
+    this.showEditParticipantModal = true;
   }
 
   async getParticipants(){
@@ -136,24 +130,7 @@ export class ListNamesComponent {
     const presentPeople = this.participants.filter(x => x.checked);
     this.shuffledNames = presentPeople.sort(() => Math.random() - 0.5);
     this.shuffledDate = `${ (new Date().getDate()).toString().padStart(2, "0")}/${(new Date().getMonth() + 1).toString().padStart(2, "0")}/${new Date().getFullYear()}`;
-  console.log("🚀 ~ file: list-names.component.ts:18 ~ ListNamesComponent ~ shuffledNames:", this.shuffledNames)
-
   }
-
-  isModalOpened() {
-    return this.showModal === true;
-  }
-
-
-  openModal() {
-    this.showModal = true;
-  }
-
-  closeModal() {
-    this.showModal = false;
-    this.getParticipants();
-  }
-
 
   getTotalMembers() {
     return this.participants.filter(x => x.type === MEMBER || x.type === LEADER).length;

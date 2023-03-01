@@ -1,0 +1,55 @@
+<div id="container">
+    <header id="header-wrapper">
+        <h2>Editar participante</h2>
+    </header>
+    
+    <section id="message-wrapper" [ngSwitch]="messageCode" #message>
+        <p *ngSwitchCase="1" class="success">Participante editado com sucesso!</p>
+        <p *ngSwitchCase="2" class="error">Os campos 'nome' e 'categoria' devem ser preenchidos!</p>
+        <p *ngSwitchCase="3" class="error">Participante deletado com sucesso!</p>
+    </section>
+    
+    <form id="form-wrapper">
+        <fieldset>
+            <legend>Campos Obrigatórios</legend>
+                <label>
+                    Nome:
+                    <input type="text" [(ngModel)]="updatedParticipant.name" name="name"/>
+                </label>
+
+                <label>
+                    Categoria:
+                    <select [(ngModel)]="updatedParticipant.type" name="type">
+                        <option [value]="'member'" [selected]="updatedParticipant.type === 'member'">Membro</option>
+                        <option [value]="'guest'" [selected]="updatedParticipant.type === 'guest'">Visitante</option>
+                    </select>
+                </label>
+        </fieldset>
+
+        <fieldset>
+            <legend>Campos opcionais</legend>
+
+            <label>
+                Apelido:
+                <input type="text" [(ngModel)]="updatedParticipant.alias" name="alias"/>
+            </label>
+
+            <label>
+                E-mail:
+                <input type="mail" [(ngModel)]="updatedParticipant.mail" name="mail"/>
+            </label>
+
+            <label>
+                Telefone:
+                <input type="text" [(ngModel)]="updatedParticipant.phone" name="phone"/>
+            </label>
+        </fieldset>
+
+
+        <section id="form-button">
+            <button type="button" (click)="updateParticipant()">Editar</button>
+            <button type="button" (click)="deleteParticipant()">Deletar</button>
+        </section>
+    </form>
+
+</div>

@@ -15,15 +15,7 @@ export class HeaderComponent {
     this.lastPatch = patchService.getAllPatches().sort((a,b) => a.version > b.version ? -1 : 1)?.[0];
   }
 
-  isModalOpened() {
-    return this.showModal === true;
-  }
-
   openModal() {
     this.showModal = true;
-  }
-
-  closeModal() {
-    this.showModal = false;
   }
 }

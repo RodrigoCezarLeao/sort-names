@@ -102,16 +102,61 @@ export class ParticipantService {
   }
 
   async delete(id: string) {
-    const cmsQuery = {
-        query: `
-            mutation {
-                deleteParticipant(where:{id: "${id}"}) {
-                    id
+    try{
+      if (id) {
+        const cmsQuery = {
+            query: `
+                mutation {
+                    deleteParticipant(where:{id: "${id}"}) {
+                        id
+                    }
                 }
-            }
-        `
-    };
+            `
+        };
+  
+        await baseGraphCMSFetch(cmsQuery);
+        return true;
+      }
 
-    await baseGraphCMSFetch(cmsQuery);
+      throw new Error("Id não preenchido.");
+    }catch (error) {
+      const errorMessage = `Erro ao excluir o participante de id '${id}'!\n${error}`;
+      alert(errorMessage);
+      console.error(errorMessage);
+      return false;
+    }
+    
   }
+
+  async update(participant: Participant) {
+    try {
+      if (participant.id && participant.name && participant.type) {
+        const cmsQuery = { 
+          query : `
+              mutation {
+                  updateParticipant(data: {
+                    name: "${participant.name}",
+                    type: ${participant.type},                
+                    alias: "${participant.alias}",
+                    mail: "${participant.mail}",
+                    phone: "${participant.phone}",
+                    active: ${participant.active}
+                  }, where: {id: "${participant.id}"}) { id }
+              }
+        `};
+
+        await baseGraphCMSFetch(cmsQuery);
+        await this.publishParticipant(participant.id);
+        return true;
+      }
+
+      throw new Error("Id, nome ou tipo não preenchidos.");
+    }catch(error) {
+      const errorMessage = `Erro ao atualizar o participante '${participant.name}'!\n${error}`;
+      alert(errorMessage);
+      console.error(errorMessage);
+      return false;
+    }    
+  }
+
 }

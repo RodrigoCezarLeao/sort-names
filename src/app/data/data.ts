@@ -89,11 +89,13 @@ export const PATCHES: Patch[] = [
       - Promover visitantes à membros;
       - Visitantes com destaque na lista de sorteio de oração.
     `,
+  },
+  {
+    version: "1.4.2",
+    release_date: new Date(2023, 2, 1),
+    description: `
+      - Modal de edição de participantes (permitir adição de informações de contato);
+      - Permitir exclusão de participantes (pela da modal de edição).
+    `,
   }
-
-// Modal de adicionar participantes deve virar modal de edição e visualização de todos os dados
-// Inserir uma página com as informações de geral
-// rebaixar visitante/membro?
-// trocar nomes por apelidos (visualização)
-// excluir participante só fazer adormecer
 ];

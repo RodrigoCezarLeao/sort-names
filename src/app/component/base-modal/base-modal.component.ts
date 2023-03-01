@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Participant } from 'src/app/interfaces/participant';
 
 @Component({
   selector: 'app-base-modal',
@@ -6,9 +7,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./base-modal.component.css']
 })
 export class BaseModalComponent {
-  opened: boolean = true;  
   @Input() content_slug: string = "";
-  @Output() close_modal: EventEmitter<any> = new EventEmitter();
+
+  @Input() prop: any = null;  
+  
+  @Input() opened: boolean = true;
+  @Output() openedChange: EventEmitter<any> = new EventEmitter();
+
+  @Output() propEvent: EventEmitter<any> = new EventEmitter();
 
   isModalOpened(){
     return this.opened === true;
@@ -20,6 +26,6 @@ export class BaseModalComponent {
   
   closeModal() {
     this.opened = false;
-    this.close_modal.emit();
+    this.openedChange.emit();
   }
 }
