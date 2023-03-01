@@ -8,6 +8,7 @@ import { PatchNotesComponent } from './component/modal/patch-notes/patch-notes.c
 import { AddParticipantComponent } from './component/modal/add-participant/add-participant.component';
 import { EditParticipantComponent } from './component/modal/edit-participant/edit-participant.component';
 import { FormsModule } from '@angular/forms';
+import { InfoParticipantComponent } from './component/modal/info-participant/info-participant.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
     BaseModalComponent,
     PatchNotesComponent,
     AddParticipantComponent,
-    EditParticipantComponent
+    EditParticipantComponent,
+    InfoParticipantComponent
   ],
   imports: [
     BrowserModule,

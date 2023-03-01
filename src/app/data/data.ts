@@ -95,7 +95,8 @@ export const PATCHES: Patch[] = [
     release_date: new Date(2023, 2, 1),
     description: `
       - Modal de edição de participantes (permitir adição de informações de contato);
-      - Permitir exclusão de participantes (pela da modal de edição).
+      - Permitir exclusão de participantes (pela da modal de edição);
+      - Modal de informações de todos os participantes.
     `,
   }
 ];

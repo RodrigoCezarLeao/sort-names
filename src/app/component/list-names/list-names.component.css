@@ -42,6 +42,7 @@ summary.participants {
 div#buttons {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 
@@ -60,7 +61,7 @@ div.text-prayer {
 }
 
 button {
-    margin: 0px 8px;
+    margin: 8px;
     width: 80px;
 }
 
@@ -69,4 +70,13 @@ button {
 }
 .guest::after {
     content: "*";    
+}
+
+div#general-button-container {
+    display: flex;
+    justify-content: center;
+}
+
+div#general-button-container button {
+    width: 120px;
 }
