@@ -19,6 +19,7 @@ export class ListNamesComponent {
   shuffledDate: string = "";
   booleanToggle: boolean = true;
   showEditParticipantModal: boolean = false;
+  showInfoParticipantModal: boolean = true;
   addGuestButtonDisabledFlag: boolean = true;
   
   constructor(private participantService: ParticipantService) {
@@ -111,8 +112,12 @@ export class ListNamesComponent {
   }
 
   openEditParticipantModal() {
-    this.editionParticipant = this.participants.find(x => x.checked);    
+    this.editionParticipant = this.participants.find(x => x.checked);
     this.showEditParticipantModal = true;
+  }
+
+  openInfoParticipantsModal() {
+    this.showInfoParticipantModal = true;
   }
 
   async getParticipants(){

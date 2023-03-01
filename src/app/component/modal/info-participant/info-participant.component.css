@@ -1,0 +1,24 @@
+
+table, tr, td, th {    
+    border: 1px solid black;
+    text-align: center;    
+}
+
+td, th {
+    padding: 5px;
+    font-size: 0.75em;
+}
+
+div { 
+    margin-top: 40px;    
+}
+
+table {
+    width: 100%;
+}
+
+:host {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+}

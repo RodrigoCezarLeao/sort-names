@@ -1,12 +1,13 @@
 div, header { 
     display: flex;
     justify-content: center;
-    align-items: self-end;
+    align-items: self-end;    
 }
 
 header h1 {    
     text-align: center;
     font-family: Helvetica;
+    font-size: 1.5em;
     margin: 0px;
     padding: 0px;
     flex-grow: 2;

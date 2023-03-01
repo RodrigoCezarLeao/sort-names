@@ -7,6 +7,7 @@
             <app-patch-notes *ngIf="content_slug === 'list-patch'"></app-patch-notes>
             <app-add-participant *ngIf="content_slug === 'add-participant'" (close_modal)="closeModal()"></app-add-participant>
             <app-edit-participant *ngIf="content_slug === 'edit-participant'" (close_modal)="closeModal()" [prop]="prop" (propEvent)="propEvent.emit()"></app-edit-participant>
+            <app-info-participant *ngIf="content_slug === 'info-participant'" (close_modal)="closeModal()" [prop]="prop"></app-info-participant>
         </div>
     </div>
 </div>
