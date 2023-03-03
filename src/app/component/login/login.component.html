@@ -1,7 +1,7 @@
 <main *ngIf="!logged">
     <form autocomplete="off">
         <label> 
-            Usuário: 
+            Usuário: <br /> 
             <input [type]="inputType" [(ngModel)]="inputValue" name="username"/>            
         </label>
 
@@ -17,6 +17,6 @@
 </main>
 
 <div *ngIf="logged">
-    <app-header></app-header>
+    <app-header [(login)]="logged"></app-header>
     <app-list-names></app-list-names>
 </div>

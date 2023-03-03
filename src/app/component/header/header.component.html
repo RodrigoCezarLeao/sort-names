@@ -1,7 +1,9 @@
 <header>
-    <h1>Sorteador - {{smallGroup.name}}</h1>
-
     <p (click)="openModal()">{{lastPatch?.version}}</p>
     <app-base-modal [content_slug]="'list-patch'" [(opened)]="showModal"></app-base-modal>
+
+    <h1>Sorteador - {{smallGroup.name}}</h1>
+
+    <button (click)="returnToLoginPage()">Voltar</button>
 </header>
 <hr />

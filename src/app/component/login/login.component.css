@@ -5,7 +5,14 @@ main {
     margin: 50px;
 }
 
-button {
-    margin: 10px;
-    
+form {
+    text-align: center;
+}
+
+form button {
+    margin-top: 15px;
+}
+
+main > button {
+    margin: 15px;
 }

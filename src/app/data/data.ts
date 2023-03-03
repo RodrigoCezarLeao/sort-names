@@ -104,7 +104,8 @@ export const PATCHES: Patch[] = [
     release_date: new Date(2023, 2, 3),
     description: `
       - Generalização de diferentes células;
-      - Implementar tela de 'login' com uma senha para acessar cada página de célula.
+      - Implementar tela de 'login' com uma senha para acessar cada página de célula;
+      - Botão para voltar ao login.
     `,
   }
 ];

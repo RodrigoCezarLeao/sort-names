@@ -36,5 +36,8 @@ export class LoginComponent {
     } else {
       alert(`Célula não encontrada!`);
     }
+
+    this.inputValue = "";
+    this.inputType = "password";
   }
 }
