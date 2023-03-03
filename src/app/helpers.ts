@@ -1,3 +1,5 @@
+import { SmallGroup } from "./interfaces/smallGroup";
+
 export function shuffle(list: string[]) {
     list.sort(() => Math.random() - 0.5);
 }
@@ -16,4 +18,18 @@ export function generateUUID() { // Public Domain/MIT
         }
         return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
+}
+
+export function setSmallGroupStorage(smallGroup: SmallGroup) {
+    window.sessionStorage.setItem("id", smallGroup.id);
+    window.sessionStorage.setItem("name", smallGroup.name);
+
+    return true;
+}
+
+export function getSmallGroupStorage() {    
+    const id = window.sessionStorage.getItem("id");
+    const name = window.sessionStorage.getItem("name");
+    
+    return {id:id ?? "", name: name ?? ""};
 }

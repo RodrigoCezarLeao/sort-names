@@ -1,0 +1,22 @@
+<main *ngIf="!logged">
+    <form autocomplete="off">
+        <label> 
+            Usuário: 
+            <input [type]="inputType" [(ngModel)]="inputValue" name="username"/>            
+        </label>
+
+        
+        <button (click)="switchInputType()">Mostrar</button>
+    </form>
+    
+    <button (click)="loginAttempt()">Entrar</button>
+
+    <div>
+        <p *ngIf="isLoading">Carregando...</p>
+    </div>
+</main>
+
+<div *ngIf="logged">
+    <app-header></app-header>
+    <app-list-names></app-list-names>
+</div>

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { baseGraphCMSFetch } from '../base_request';
-import { SMALL_GROUP_MAIN_ID } from '../constants/general';
 import { PARTICIPANT } from '../data/data';
 import { generateUUID } from '../helpers';
 import { Participant } from '../interfaces/participant';
@@ -10,7 +9,7 @@ import { Users } from '../interfaces/users';
   providedIn: 'root'
 })
 export class ParticipantService {
-  async getSmallGroupParticipants (id: string = SMALL_GROUP_MAIN_ID) {
+  async getSmallGroupParticipants (id: string) {
       const cmsQuery = { 
           query : `
               query MyQuery {
@@ -26,7 +25,7 @@ export class ParticipantService {
               }
       `};
 
-      return (await baseGraphCMSFetch(cmsQuery))?.data?.participants;      
+      return (await baseGraphCMSFetch(cmsQuery))?.data?.participants;
   }
 
   async publishParticipant(id: string) {    

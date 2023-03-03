@@ -98,5 +98,13 @@ export const PATCHES: Patch[] = [
       - Permitir exclusão de participantes (pela da modal de edição);
       - Modal de informações de todos os participantes.
     `,
+  },
+  {
+    version: "1.5",
+    release_date: new Date(2023, 2, 3),
+    description: `
+      - Generalização de diferentes células;
+      - Implementar tela de 'login' com uma senha para acessar cada página de célula.
+    `,
   }
 ];

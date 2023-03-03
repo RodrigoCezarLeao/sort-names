@@ -1,0 +1,11 @@
+main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 50px;
+}
+
+button {
+    margin: 10px;
+    
+}

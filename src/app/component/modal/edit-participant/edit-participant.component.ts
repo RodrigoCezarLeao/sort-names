@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SMALL_GROUP_MAIN_ID } from 'src/app/constants/general';
 import { GUEST } from 'src/app/constants/participant';
+import { getSmallGroupStorage } from 'src/app/helpers';
 import { Participant } from 'src/app/interfaces/participant';
 import { ParticipantService } from 'src/app/services/participant.service';
 
@@ -15,12 +15,14 @@ export class EditParticipantComponent implements OnInit {
 
   @Output() propEvent: EventEmitter<any> = new EventEmitter();
 
-  updatedParticipant: Participant = {id: "", name: "", type: GUEST, small_group_id: SMALL_GROUP_MAIN_ID, active: true, checked: true};
+  updatedParticipant: Participant = {id: "", name: "", type: GUEST, small_group_id: "", active: true, checked: true};
   messageCode: number = 0;
 
   constructor(private participantService: ParticipantService){}
 
   ngOnInit() {
+    const smallGroupId = getSmallGroupStorage()?.id;
+
     const undef = "undefined";
     const nul = "null";
     const name = this.prop?.name;
@@ -37,7 +39,7 @@ export class EditParticipantComponent implements OnInit {
         name: name,
         id: id,
         type: type,
-        small_group_id: SMALL_GROUP_MAIN_ID,
+        small_group_id: smallGroupId,
         active: active,
         mail: mail,
         phone: phone,

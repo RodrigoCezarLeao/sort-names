@@ -1,8 +1,7 @@
 import { Component, EventEmitter } from '@angular/core';
-import { SMALL_GROUP_MAIN_ID } from 'src/app/constants/general';
 import { GUEST, LEADER, MEMBER } from 'src/app/constants/participant';
 import { PARTICIPANT } from 'src/app/data/data';
-import { shuffle } from 'src/app/helpers';
+import { getSmallGroupStorage, shuffle } from 'src/app/helpers';
 import { Participant } from 'src/app/interfaces/participant';
 import { ParticipantService } from 'src/app/services/participant.service';
 
@@ -21,8 +20,10 @@ export class ListNamesComponent {
   showEditParticipantModal: boolean = false;
   showInfoParticipantModal: boolean = false;
   addGuestButtonDisabledFlag: boolean = true;
+  smallGroupId: string;
   
   constructor(private participantService: ParticipantService) {
+    this.smallGroupId = getSmallGroupStorage()?.id;
     this.getParticipants();
   }
 
@@ -46,7 +47,7 @@ export class ListNamesComponent {
         name: input.value,
         alias: input.value.split(" ")?.[0],
         type: GUEST,
-        small_group_id: SMALL_GROUP_MAIN_ID,
+        small_group_id: this.smallGroupId,
         active: true,
         checked: false
       }
@@ -120,8 +121,8 @@ export class ListNamesComponent {
     this.showInfoParticipantModal = true;
   }
 
-  async getParticipants(){
-    const people = await this.participantService.getSmallGroupParticipants();
+  async getParticipants() {        
+    const people = await this.participantService.getSmallGroupParticipants(this.smallGroupId);
     this.participants = people.sort((a: Participant, b: Participant) => a.name >= b.name ? 1 : -1);
     this.checkedPeople = this.participants.filter(x => x.checked);
   }
