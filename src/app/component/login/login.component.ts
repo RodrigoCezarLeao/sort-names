@@ -25,14 +25,16 @@ export class LoginComponent {
   }
 
   async loginAttempt() {
-    var result = await this.smallGroupService.checkSmallGroupLogin(this.inputValue);
+    var result = await this.smallGroupService.checkSmallGroupLogin(this.inputValue);    
 
-    if (result.id && result.name && setSmallGroupStorage(result))
+    if (result?.id && result?.name && setSmallGroupStorage(result))
     {
       this.smallGroup = result;      
       alert(`Logado com sucesso '${result.name}'`);
       this.isLoading = false;
       this.logged = true;
+    } else {
+      alert(`Célula não encontrada!`);
     }
   }
 }
