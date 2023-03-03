@@ -2,11 +2,11 @@
     <form autocomplete="off">
         <label> 
             Usuário: <br /> 
-            <input [type]="inputType" [(ngModel)]="inputValue" name="username"/>            
+            <input [type]="inputType" [(ngModel)]="inputValue" (keypress)="enterPress($event)" name="username"/>            
         </label>
 
         
-        <button (click)="switchInputType()">Mostrar</button>
+        <button (click)="switchInputType()">{{ inputType === "password" ? "Mostrar" : "Ocultar"}}</button>
     </form>
     
     <button (click)="loginAttempt()">Entrar</button>

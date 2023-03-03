@@ -40,4 +40,11 @@ export class LoginComponent {
     this.inputValue = "";
     this.inputType = "password";
   }
+
+  enterPress(event: KeyboardEvent) {
+    if (event.key == "Enter") {
+      event.preventDefault();
+      this.loginAttempt();
+    }      
+  }
 }
